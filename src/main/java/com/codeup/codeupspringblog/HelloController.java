@@ -1,7 +1,11 @@
 package com.codeup.codeupspringblog;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 record Message(String message){}
 
@@ -40,11 +44,40 @@ public class HelloController {
         return number + " plus one is " + (number + 1) + "!";
     }
 
-
     @GetMapping("/boolean/{booleanVar}")
     @ResponseBody
     public String booleanValue(@PathVariable boolean booleanVar) {
         return "The answer is: " + booleanVar;
     }
+
+//    ---------------------view thymeleaf--------------
+@GetMapping("/hello/{name}")
+public String sayHello(@PathVariable String name, Model model) {
+    model.addAttribute("name", name);
+    return "hello";
+}
+
+    @GetMapping("/join")
+    public String showJoinForm() {
+        return "join";
+    }
+
+    @PostMapping("/join")
+    public String joinCohort(@RequestParam(name = "cohort") String cohort, Model model) {
+        model.addAttribute("cohort", cohort);
+        return "join";
+    }
+//--------dogpark---------
+@GetMapping("/dogpark")
+public String dogpark(Model model) {
+    List<String> dogs = new ArrayList<>();
+    dogs.add("Bubbles");
+    dogs.add("Spot");
+    dogs.add("Ezekial");
+
+    model.addAttribute("dogs", dogs);
+    return "dogPark";
+}
+
 
 }
