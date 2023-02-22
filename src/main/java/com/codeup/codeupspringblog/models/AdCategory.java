@@ -13,16 +13,14 @@ public class AdCategory {
     @Column(length = 100)
     private String name;
 
-    //ad.java     private List<AdCategory> categories;
     @ManyToMany(mappedBy = "categories")
     private List<Ad> ads;
+
+    public AdCategory(){};
 
     public AdCategory(String name, List<Ad> ads) {
         this.name = name;
         this.ads = ads;
-    }
-
-    public AdCategory() {
     }
 
     public long getId() {

@@ -22,7 +22,6 @@ public class Ad {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "ad")
     private List<AdImage> images;
 
-
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "ads_categories",
@@ -30,6 +29,7 @@ public class Ad {
             inverseJoinColumns = {@JoinColumn(name = "category_id")}
     )
     private List<AdCategory> categories;
+
     public Ad(){};
 
     public Ad(String title, String description) {
@@ -73,5 +73,24 @@ public class Ad {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public List<AdCategory> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(List<AdCategory> categories) {
+        this.categories = categories;
+    }
+
+    @Override
+    public String toString() {
+        return "Ad{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", images=" + images +
+                ", categories=" + categories +
+                '}';
     }
 }
