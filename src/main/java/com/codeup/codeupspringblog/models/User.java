@@ -24,7 +24,31 @@ public class User {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<Post> posts;
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "onwer")
+    private List<Ad> ads;
+
+    public List<Ad> getAds() {
+        return ads;
+    }
+
+    public void setAds(List<Ad> ads) {
+        this.ads = ads;
+    }
+
+    public User(String username, String email, List<Ad> ads) {
+        this.username = username;
+        this.email = email;
+        this.ads = ads;
+    }
+
     public User() {
+    }
+
+    public User(User copy){
+        id = copy.id;
+        email = copy.email;
+        username = copy.username;
+        password = copy.password;
     }
 
     public User(long id, String username, String email, String password) {

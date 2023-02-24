@@ -30,6 +30,9 @@ public class Ad {
     )
     private List<AdCategory> categories;
 
+    @ManyToOne(cascade = CascadeType.ALL)
+    private User onwer;
+
     public Ad(){};
 
     public Ad(String title, String description) {
@@ -61,6 +64,12 @@ public class Ad {
 
     public String getTitle() {
         return title;
+    }
+
+    public Ad(String title, String description, User onwer) {
+        this.title = title;
+        this.description = description;
+        this.onwer = onwer;
     }
 
     public void setTitle(String title) {
