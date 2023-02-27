@@ -5,27 +5,37 @@ import jakarta.persistence.*;
 import java.util.List;
 
 @Entity
-
 @Table(name = "users")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-
-    @Column(nullable = false, length = 30, unique = true)
+    @Column(nullable = false, length = 50, unique = true)
     private String username;
-
-    @Column(nullable = false, length = 100, unique = true)
-    private String email;
-
     @Column(nullable = false)
     private String password;
-
+    @Column(nullable = false, unique = true)
+    private String email;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<Post> posts;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "onwer")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "owner")
     private List<Ad> ads;
+
+    public User() {};
+
+    public User(User copy) {
+        id = copy.id;
+        email = copy.email;
+        username = copy.username;
+        password = copy.password;
+    }
+
+    public User(String username, String password, String email) {
+        this.username = username;
+        this.password = password;
+        this.email = email;
+    }
 
     public List<Ad> getAds() {
         return ads;
@@ -33,43 +43,6 @@ public class User {
 
     public void setAds(List<Ad> ads) {
         this.ads = ads;
-    }
-
-    public User(String username, String email, List<Ad> ads) {
-        this.username = username;
-        this.email = email;
-        this.ads = ads;
-    }
-
-    public User() {
-    }
-
-    public User(User copy){
-        id = copy.id;
-        email = copy.email;
-        username = copy.username;
-        password = copy.password;
-    }
-
-    public User(long id, String username, String email, String password) {
-        this.id = id;
-        this.username = username;
-        this.email = email;
-        this.password = password;
-    }
-
-    public User(String username, String email, String password) {
-        this.username = username;
-        this.email = email;
-        this.password = password;
-    }
-
-    public List<Post> getPosts() {
-        return posts;
-    }
-
-    public void setPosts(List<Post> posts) {
-        this.posts = posts;
     }
 
     public long getId() {
@@ -88,6 +61,14 @@ public class User {
         this.username = username;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     public String getEmail() {
         return email;
     }
@@ -96,11 +77,11 @@ public class User {
         this.email = email;
     }
 
-    public String getPassword() {
-        return password;
+    public List<Post> getPosts() {
+        return posts;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setPosts(List<Post> posts) {
+        this.posts = posts;
     }
 }

@@ -3,8 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title>Ads</title>
+    <th:block th:include="partials/partials.html :: styles"></th:block>
 </head>
 <body>
+<nav th:replace="partials/partials.html :: navbar"></nav>
 <h1>Here are all the ads: </h1>
 <div th:each="ad : ${ads}">
     <img th:each="image : ${ad.getImages()}" th:src="@{${image.imageURL}}" alt="ad image" />

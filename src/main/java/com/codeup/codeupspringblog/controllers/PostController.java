@@ -10,9 +10,7 @@ import org.springframework.ui.Model;
 
 @Controller
 public class PostController {
-
     private final PostDaoService postService;
-
     private final EmailService emailService;
 
     public PostController(PostDaoService postService, EmailService emailService) {
@@ -40,6 +38,10 @@ public class PostController {
 
     @PostMapping(path = "/posts/create")
     public String postCreateSubmit(@ModelAttribute Post post){
+        System.out.println(post.getId());
+        System.out.println(post.getTitle());
+        System.out.println(post.getBody());
+        System.out.println(post.getUser());
         postService.savePost(post);
         emailService.sendTextEmail(post);
         return "redirect:/posts";
